@@ -1,0 +1,34 @@
+---
+import { site } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang).contact;
+---
+
+<form class="form glass" data-contact-form data-mail={site.email} data-subject={d.subject} data-done={d.done} data-reveal>
+  <div class="field">
+    <label for="cf-name">{d.name}</label>
+    <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120" />
+  </div>
+  <div class="field">
+    <label for="cf-email">{d.email}</label>
+    <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="160" />
+  </div>
+  <div class="field">
+    <label for="cf-message">{d.message}</label>
+    <textarea id="cf-message" name="message" required maxlength="4000"></textarea>
+  </div>
+  <div class="hp" aria-hidden="true">
+    <label for="cf-website">{d.hp}</label>
+    <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <label class="check">
+    <input type="checkbox" name="consent" value="1" required />
+    <span>{d.consentA} <a class="text-link" href={href(lang, '/datenschutz/')}>{d.consentLink}</a>. {d.consentB}</span>
+  </label>
+  <button class="btn btn-primary" type="submit" data-magnetic>{d.submit}</button>
+  <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+</form>

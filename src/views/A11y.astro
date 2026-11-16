@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const crumbs = [{ name: d.ui.a11y, href: href(lang, '/barrierefreiheit/') }];
+const title = lang === 'de' ? 'Erklärung zur Barrierefreiheit' : 'Заява про доступність';
+---
+
+<Base lang={lang} title={d.meta.a11y.title} description={d.meta.a11y.description} crumbs={crumbs}>
+  <PageHead lang={lang} title={title} crumbs={crumbs} />
+  <section class="block" style="padding-top:1rem">
+    <div class="wrap legal">
+      {d.ui.legalNote && <p><em>{d.ui.legalNote}</em></p>}
+      {
+        lang === 'de' ? (
+          <>
+            <p>
+              Wir legen großen Wert darauf, unsere Website barrierefrei zugänglich zu gestalten – im Einklang mit dem
+              Barrierefreiheitsstärkungsgesetz (BFSG) sowie den Anforderungen der WCAG 2.1, Konformitätsstufe AA.
+            </p>
+
+            <h2>Stand der Barrierefreiheit</h2>
+            <p>
+              Der technische Aufbau und die redaktionellen Inhalte dieser Website sind grundsätzlich barrierefrei
+              gestaltet. Dazu zählen insbesondere:
+            </p>
+            <ul>
+              <li>lesefreundliche Texte in verständlicher Sprache</li>
+              <li>klare Seitenstruktur und logische Überschriften</li>
+              <li>ausreichende Farbkontraste und Schriftgrößen</li>
+              <li>vollständige Tastaturbedienbarkeit</li>
+              <li>Alternativtexte für relevante Bilder und Bedienelemente</li>
+              <li>Animationen werden reduziert, wenn im System „Bewegung reduzieren“ aktiviert ist</li>
+            </ul>
+
+            <h2>Einschränkungen</h2>
+            <p>
+              Externe Inhalte von Drittanbietern, auf die diese Website verlinkt (zum Beispiel WhatsApp oder die
+              Websites von Kunden), liegen technisch und gestalterisch außerhalb unseres direkten Einflussbereichs und
+              sind möglicherweise nicht barrierefrei.
+            </p>
+
+            <h2>Kontakt und Feedback</h2>
+            <p>
+              Sollten Sie beim Besuch dieser Website auf Barrieren stoßen oder bestimmte Inhalte nicht nutzen können,
+              kontaktieren Sie uns gerne: <a href={`mailto:${site.email}`}>{site.email}</a>
+            </p>
+            <p>Wir prüfen alle Hinweise zeitnah und suchen bei Bedarf gemeinsam nach einer Lösung.</p>
+
+            <h2>Alternative Zugänge</h2>
+            <p>
+              Auf Anfrage stellen wir Ihnen Inhalte gern in barrierefreier Form zur Verfügung – beispielsweise als
+              reinen Text oder als barrierefreie PDF.
+            </p>
+          </>
+        ) : (
+          <>
+            <p>
+              Для нас важливо, щоб цей сайт був доступним без бар’єрів — відповідно до німецького Закону про посилення
+              безбар’єрності (BFSG) та вимог WCAG 2.1, рівень відповідності AA.
+            </p>
+
+            <h2>Стан доступності</h2>
+            <p>Технічна побудова й тексти цього сайту загалом створені з урахуванням доступності. Зокрема:</p>
+            <ul>
+              <li>зручні для читання тексти зрозумілою мовою</li>
+              <li>чітка структура сторінок і логічні заголовки</li>
+              <li>достатній контраст кольорів і розмір шрифтів</li>
+              <li>повне керування з клавіатури</li>
+              <li>альтернативні тексти для важливих зображень та елементів керування</li>
+              <li>анімації спрощуються, якщо в системі ввімкнено «Зменшити рух»</li>
+            </ul>
+
+            <h2>Обмеження</h2>
+            <p>
+              Зовнішній вміст сторонніх сервісів, на які посилається цей сайт (наприклад, WhatsApp або сайти клієнтів),
+              технічно й візуально перебуває поза нашим прямим впливом і може не бути повністю доступним.
+            </p>
+
+            <h2>Контакт і зворотний зв’язок</h2>
+            <p>
+              Якщо під час відвідування сайту ви натрапили на бар’єри або не можете скористатися певним вмістом,
+              напишіть нам: <a href={`mailto:${site.email}`}>{site.email}</a>
+            </p>
+            <p>Ми оперативно розглядаємо всі звернення й за потреби разом шукаємо рішення.</p>
+
+            <h2>Альтернативний доступ</h2>
+            <p>
+              На запит ми охоче надамо вміст у доступній формі — наприклад, як простий текст або доступний PDF-файл.
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>

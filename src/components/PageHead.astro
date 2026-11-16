@@ -1,0 +1,35 @@
+---
+import { t, href, type Lang } from '../i18n';
+interface Props {
+  lang: Lang;
+  title: string;
+  lead?: string;
+  crumbs: { name: string; href: string }[];
+}
+const { lang, title, lead, crumbs } = Astro.props;
+const d = t(lang);
+---
+
+<section class="page-head">
+  <div class="wrap">
+    <nav aria-label={d.ui.crumbs}>
+      <ol class="crumbs">
+        <li><a href={href(lang, '/')}>{d.ui.start}</a></li>
+        {
+          crumbs.map((c, i) =>
+            i === crumbs.length - 1 ? (
+              <li aria-current="page">{c.name}</li>
+            ) : (
+              <li>
+                <a href={c.href}>{c.name}</a>
+              </li>
+            ),
+          )
+        }
+      </ol>
+    </nav>
+    <h1>{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</section>

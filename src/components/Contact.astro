@@ -1,0 +1,31 @@
+---
+import ContactForm from './ContactForm.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { t, type Lang } from '../i18n';
+interface Props {
+  lang: Lang;
+  showTitle?: boolean;
+}
+const { lang, showTitle = true } = Astro.props;
+const d = t(lang).contact;
+---
+
+<div class="contact">
+  <div data-reveal>
+    {showTitle && <h2>{d.title}</h2>}
+    <p class="lead" style={showTitle ? 'margin-top:1.25rem' : ''}>{d.lead}</p>
+    <ul class="contact-list">
+      <li>
+        <a href={`tel:${site.phoneHref}`}><span class="icon-btn"><Icon name="phone" /></span>{site.phoneDisplay}</a>
+      </li>
+      <li>
+        <a href={`mailto:${site.email}`}><span class="icon-btn"><Icon name="mail" /></span>{site.email}</a>
+      </li>
+      <li>
+        <a href={site.whatsapp} rel="noopener"><span class="icon-btn"><Icon name="whatsapp" /></span>WhatsApp</a>
+      </li>
+    </ul>
+  </div>
+  <ContactForm lang={lang} />
+</div>

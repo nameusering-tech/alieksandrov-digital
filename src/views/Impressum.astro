@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const crumbs = [{ name: d.ui.impressum, href: href(lang, '/impressum/') }];
+---
+
+<Base lang={lang} title={d.meta.impressum.title} description={d.meta.impressum.description} crumbs={crumbs}>
+  <PageHead lang={lang} title={d.ui.impressum} crumbs={crumbs} />
+  <section class="block" style="padding-top:1rem">
+    <div class="wrap legal">
+      {d.ui.legalNote && <p><em>{d.ui.legalNote}</em></p>}
+      {
+        lang === 'de' ? (
+          <>
+            <h2>Angaben gemäß § 5 DDG</h2>
+            <address>
+              Oleksandr Alieksandrov<br />
+              {site.address.street}<br />
+              {site.address.zip} {site.address.city}
+            </address>
+
+            <h2>Kontakt</h2>
+            <p>
+              Telefon: <a href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a><br />
+              E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+            </p>
+
+            <h2>EU-Streitschlichtung</h2>
+            <p>
+              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:{' '}
+              <a href="https://ec.europa.eu/consumers/odr/" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Unsere
+              E-Mail-Adresse finden Sie oben im Impressum.
+            </p>
+
+            <h2>Verbraucherstreitbeilegung/Universalschlichtungsstelle</h2>
+            <p>
+              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
+            </p>
+          </>
+        ) : (
+          <>
+            <h2>Відомості згідно з § 5 DDG</h2>
+            <address lang="de">
+              Oleksandr Alieksandrov<br />
+              {site.address.street}<br />
+              {site.address.zip} {site.address.city}
+            </address>
+
+            <h2>Контакт</h2>
+            <p>
+              Телефон: <a href={`tel:${site.phoneHref}`}>{site.phoneDisplay}</a><br />
+              Електронна пошта: <a href={`mailto:${site.email}`}>{site.email}</a>
+            </p>
+
+            <h2>Врегулювання спорів у ЄС</h2>
+            <p>
+              Європейська комісія надає платформу для онлайн-врегулювання спорів (OS):{' '}
+              <a href="https://ec.europa.eu/consumers/odr/" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Нашу
+              електронну адресу вказано вище в імпресумі.
+            </p>
+
+            <h2>Врегулювання спорів зі споживачами</h2>
+            <p>
+              Ми не готові й не зобов’язані брати участь у процедурах врегулювання спорів в органі з розв’язання
+              споживчих спорів.
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Contact from '../components/Contact.astro';
+import Area from '../components/Area.astro';
+import { site } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const self = href(lang, '/kontakt/');
+const crumbs = [{ name: d.contact.title, href: self }];
+const schema = [{ '@type': 'ContactPage', url: site.url + self, about: { '@id': `${site.url}/#person` } }];
+---
+
+<Base lang={lang} title={d.meta.contact.title} description={d.meta.contact.description} og="kontakt" crumbs={crumbs} schema={schema}>
+  <PageHead lang={lang} title={d.contact.title} crumbs={crumbs} />
+  <section class="block" style="padding-top:1rem" aria-label={d.contact.label}>
+    <div class="wrap">
+      <Contact lang={lang} showTitle={false} />
+    </div>
+  </section>
+  <section class="block" aria-label={d.area.label}>
+    <div class="wrap">
+      <Area lang={lang} />
+    </div>
+  </section>
+</Base>

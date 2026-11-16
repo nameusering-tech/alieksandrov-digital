@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects, site } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const crumbs = [{ name: d.ui.projects, href: href(lang, '/projekte/') }];
+const schema = [
+  {
+    '@type': 'ItemList',
+    itemListElement: projects.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: d.projects.items[p.slug].title,
+      url: site.url + href(lang, `/projekte/${p.slug}/`),
+    })),
+  },
+];
+---
+
+<Base lang={lang} title={d.meta.projects.title} description={d.meta.projects.description} og="projekte" crumbs={crumbs} schema={schema}>
+  <PageHead lang={lang} title={d.projects.title} lead={d.projects.lead} crumbs={crumbs} />
+  <section class="block" style="padding-top:2rem" aria-label={d.projects.listLabel}>
+    <div class="wrap cards cards-3">
+      {projects.map((p) => <ProjectCard lang={lang} project={p} heading="h2" />)}
+    </div>
+  </section>
+  <section class="block">
+    <div class="wrap">
+      <div class="cta-band glass" data-reveal>
+        <h2>{d.projects.ctaTitle}</h2>
+        <a class="btn btn-primary" href={href(lang, '/kontakt/')} data-magnetic>{d.ui.contactCta}</a>
+      </div>
+    </div>
+  </section>
+</Base>

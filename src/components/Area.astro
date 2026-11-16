@@ -1,0 +1,17 @@
+---
+import { t, type Lang } from '../i18n';
+interface Props {
+  lang: Lang;
+}
+const d = t(Astro.props.lang).area;
+---
+
+<div class="area glass" data-reveal>
+  <div>
+    <h2>{d.title}</h2>
+    <p class="lead" style="margin-top:1.25rem">{d.text}</p>
+  </div>
+  <ul class="places" aria-label={d.placesLabel}>
+    {d.places.map((p, i) => <li class:list={['place', { 'is-home': i === 0 }]}>{p}</li>)}
+  </ul>
+</div>

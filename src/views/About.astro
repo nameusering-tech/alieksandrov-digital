@@ -1,0 +1,70 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import aboutImg from '../assets/about.jpg';
+import { site } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const d = t(lang);
+const crumbs = [{ name: d.about.title, href: href(lang, '/ueber-mich/') }];
+const schema = [{ '@type': 'ProfilePage', mainEntity: { '@id': `${site.url}/#person` } }];
+---
+
+<Base lang={lang} title={d.meta.about.title} description={d.meta.about.description} og="ueber-mich" ogType="profile" crumbs={crumbs} schema={schema}>
+  <PageHead lang={lang} title={d.about.title} lead={d.about.strong} crumbs={crumbs} />
+
+  <section class="block" style="padding-top:2rem" aria-label={d.about.sectionLabel}>
+    <div class="wrap split" style="align-items:start">
+      <div class="split-media" data-reveal>
+        <Picture
+          src={aboutImg}
+          alt={d.about.imgAlt}
+          formats={['avif']}
+          fallbackFormat="webp"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 56rem) 40vw, 92vw"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <div class="prose" data-reveal>
+        {d.about.paras.map((p) => <p>{p}</p>)}
+        <p><a class="text-link" href={href(lang, '/projekte/')}>{d.ui.viewProjects}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="weg">
+    <div class="wrap">
+      <div class="block-head" data-reveal>
+        <h2 id="weg">{d.about.wayTitle}</h2>
+        <p class="lead">{d.about.wayLead}</p>
+      </div>
+      <ol class="timeline">
+        {
+          d.timeline.map((step) => (
+            <li data-reveal>
+              <span class="period">{step.period}</span>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="cta-band glass" data-reveal>
+        <h2>{d.about.ctaTitle}</h2>
+        <a class="btn btn-primary" href={href(lang, '/kontakt/')} data-magnetic>{d.ui.contactCta}</a>
+      </div>
+    </div>
+  </section>
+</Base>

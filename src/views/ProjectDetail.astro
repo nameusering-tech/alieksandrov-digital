@@ -1,0 +1,107 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Icon from '../components/Icon.astro';
+import { images } from '../data/images';
+import { projects, site, type ProjectBase } from '../data/site';
+import { t, href, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  project: ProjectBase;
+}
+const { lang, project } = Astro.props;
+const d = t(lang);
+const text = d.projects.items[project.slug];
+const others = projects.filter((p) => p.slug !== project.slug);
+const self = href(lang, `/projekte/${project.slug}/`);
+const crumbs = [
+  { name: d.ui.projects, href: href(lang, '/projekte/') },
+  { name: text.title, href: self },
+];
+const schema = [
+  {
+    '@type': 'CreativeWork',
+    name: text.title,
+    description: text.description,
+    url: site.url + self,
+    inLanguage: lang === 'uk' ? 'uk-UA' : 'de-DE',
+    creator: { '@id': `${site.url}/#person` },
+    keywords: project.tags.join(', '),
+    image: `${site.url}/og/${lang === 'uk' ? 'uk-' : ''}${project.slug}.png`,
+    ...(project.url ? { sameAs: project.url } : {}),
+  },
+];
+const suffix = lang === 'uk' ? 'Алєксандров' : 'Alieksandrov';
+---
+
+<Base lang={lang} title={`${text.title} | ${suffix}`} description={text.meta} og={project.slug} ogType="article" crumbs={crumbs} schema={schema}>
+  <PageHead lang={lang} title={text.title} lead={text.description} crumbs={crumbs} />
+
+  <section class="block" style="padding-top:2rem" aria-label={d.projects.detailsLabel}>
+    <div class="wrap project-detail">
+      <div class="sticky" data-reveal>
+        <h2>{d.projects.includes}</h2>
+        <ul class="ticks" style="margin-top:1.5rem;display:grid;gap:.7rem">
+          {text.points.map((p) => <li>{p}</li>)}
+        </ul>
+        <h3 style="margin-top:2rem">{d.projects.tools}</h3>
+        <ul class="tags" style="margin-top:.9rem">
+          {project.tags.map((tag) => <li class="tag" lang="en">{tag}</li>)}
+        </ul>
+        {
+          project.url && (
+            <p style="margin-top:2rem">
+              <a class="btn btn-primary" href={project.url} rel="noopener" data-magnetic>
+                {text.urlLabel}
+                <Icon name="external" />
+              </a>
+            </p>
+          )
+        }
+      </div>
+      <div class="shots">
+        {
+          project.images.map((key, i) => (
+            <figure class="shot" data-reveal>
+              <Picture
+                src={images[key]}
+                alt={text.alts[i]}
+                formats={['avif']}
+                fallbackFormat="webp"
+                widths={[640, 1000, 1600]}
+                sizes="(min-width: 60rem) 55vw, 92vw"
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="weitere">
+    <div class="wrap">
+      <div class="block-head" data-reveal>
+        <h2 id="weitere">{d.projects.more}</h2>
+      </div>
+      <ul class="cards cards-2">
+        {
+          others.map((p) => (
+            <li>
+              <a class="card glass" href={href(lang, `/projekte/${p.slug}/`)} style="text-decoration:none" data-reveal>
+                <span class="project-kind">{d.projects.items[p.slug].kind}</span>
+                <h3>{d.projects.items[p.slug].title}</h3>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p style="margin-top:2rem" data-reveal>
+        <a class="btn btn-ghost" href={href(lang, '/kontakt/')} data-magnetic>{d.ui.contactCta}</a>
+      </p>
+    </div>
+  </section>
+</Base>
