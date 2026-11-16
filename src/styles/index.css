@@ -1,0 +1,12 @@
+/* Einstiegspunkt aller Styles. Reihenfolge = Kaskade. Vite fasst alles zu einer Datei zusammen,
+   Astro bettet sie inline in jede Seite ein (kein zusätzlicher Request). */
+@import './fonts.css'; /* @font-face mit unicode-range */
+@import './base.css'; /* Design-Tokens, Reset, Typografie, Layout-Helfer */
+@import './components.css'; /* Buttons, Glas-Flächen */
+@import './header.css'; /* Kopfzeile, Navigation, Sprachumschalter, Mobilmenü */
+@import './hero.css'; /* Startseiten-Hero mit Shader-Hintergrund */
+@import './sections.css'; /* Inhaltsabschnitte: Zahlen, Stack, Karten, Projekte, Timeline, FAQ, Kontakt */
+@import './pages.css'; /* Unterseiten: Seitenkopf, Projektdetails, Rechtstexte, CTA */
+@import './footer.css';
+@import './motion.css'; /* Cursor, Einblenden, Seitenübergänge, reduzierte Bewegung */
+@import './lang-uk.css'; /* Anpassungen für Kyrillisch, zuletzt */

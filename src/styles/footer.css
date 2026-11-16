@@ -1,0 +1,40 @@
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 3rem 0 2rem;
+  margin-top: clamp(2rem, 6vw, 4rem);
+  color: var(--mist);
+  font-size: 0.97rem;
+}
+.footer-grid {
+  display: grid;
+  gap: 2rem;
+}
+.footer h2 {
+  font: 700 1rem var(--font-body);
+  letter-spacing: 0;
+  color: var(--white);
+  margin-bottom: 0.6rem;
+}
+.footer li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  text-decoration: none;
+}
+.footer li a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+.footer-bottom {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+  color: var(--ash);
+}
+@media (min-width: 48rem) {
+  .footer-grid {
+    grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+  }
+}
+

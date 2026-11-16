@@ -1,6 +1,7 @@
 # alieksandrov-portfolio
 
-Portfolio von Oleksandr Alieksandrov als statische Astro-Website, zweisprachig: Deutsch (`/`) und Ukrainisch (`/uk/`). Neuaufbau von https://alieksandrov-digital.de/ – nur lokal, nicht veröffentlicht.
+Portfolio von Oleksandr Alieksandrov als statische Astro-Website, zweisprachig: Deutsch (`/`) und Ukrainisch (`/uk/`). Neuaufbau von https://alieksandrov-digital.de/.
+Testkopie (noindex): https://nameusering-tech.github.io/alieksandrov-digital/ – jeder Push auf `main` baut und veröffentlicht neu (`.github/workflows/pages.yml`).
 
 ## Starten
 
@@ -12,7 +13,8 @@ npm run dev        # Entwicklungsserver: http://localhost:4321
 npm run build      # Production-Build nach dist/
 npm run preview    # Build lokal ansehen
 npm run check:links  # interne Links und Assets im Build prüfen
-node scripts/icons.mjs  # Favicon-Set aus public/favicon.svg neu erzeugen
+npm run icons      # Favicon-Set aus public/favicon.svg neu erzeugen
+npm run fonts      # Schriften neu zuschneiden (braucht: pip install fonttools brotli)
 ```
 
 ## Stack
@@ -23,22 +25,37 @@ node scripts/icons.mjs  # Favicon-Set aus public/favicon.svg neu erzeugen
 - Keine Animationsbibliothek, kein Smooth-Scroll-Skript: IntersectionObserver, CSS-Transitions, requestAnimationFrame
 - Seitenübergänge ohne JS über `@view-transition { navigation: auto }` (Chrome, Safari; Firefox navigiert normal)
 - Speculation Rules: Seiten werden beim Überfahren eines Links vorgerendert (Chrome)
-- Schriften lokal aus Fontsource-Paketen, eigene `@font-face`-Regeln mit `unicode-range` in `src/styles/fonts.css`:
-  Barlow Condensed + PT Sans (Deutsch), Oswald + PT Sans kyrillisch (Ukrainisch), VT323 für Zahlen
+- Schriften lokal und auf die benötigten Zeichen zugeschnitten (`src/assets/fonts/`, erzeugt von `scripts/subset-fonts.sh`
+  aus den Fontsource-Paketen, ohne Hinting): zusammen ca. 63 KB statt 250 KB. `unicode-range` in `src/styles/fonts.css`
+  sorgt dafür, dass Deutsch nur lateinische und Ukrainisch vor allem kyrillische Dateien lädt.
+  Barlow Condensed + PT Sans (Deutsch), Oswald + PT Sans (Ukrainisch), VT323 für Zahlen
+- Hero-Hintergrund: eigener WebGL-Shader (GLSL), orange-brauner Rauch wie das Hintergrundbild der alten Seite, aber animiert
 - Bilder über `astro:assets`/sharp als AVIF mit WebP-Fallback, `width`/`height`, Lazy Loading
 - OG-Bilder je Sprache beim Build mit satori + sharp (`src/pages/og/[slug].png.ts`)
 
 ## Struktur
 
 ```
-src/i18n/de.ts, uk.ts   Alle Texte je Sprache (uk.ts muss dieselbe Struktur wie de.ts haben, TypeScript prüft das)
-src/i18n/index.ts       t(lang), href(lang, pfad), pathIn(zielsprache, aktuellerPfad)
-src/data/site.ts        Sprachunabhängiges: Kontakt, Kennzahlen, Tech-Stack, Projekt-Slugs/Tags/Bilder
-src/views/              Seiteninhalte mit lang-Prop (Home, Projects, ProjectDetail, About, ContactPage, Impressum, Privacy, A11y)
-src/pages/              Dünne Routen: deutsche Seiten direkt, ukrainische unter src/pages/uk/
-src/layouts/Base.astro  <head>, SEO-Meta, hreflang, JSON-LD, Header mit Sprachumschalter, Footer
-src/styles/             fonts.css (Schriften), global.css (Design-Tokens und alle Styles)
-extras/contact.php      Vorbereiteter PHP-Versand fürs Formular, noch NICHT angeschlossen
+.github/workflows/pages.yml  Build + Veröffentlichung auf GitHub Pages
+astro.config.mjs             Domain, Basis-Pfad, Sitemap, Build-Optionen
+extras/contact.php           Vorbereiteter PHP-Versand fürs Formular, noch NICHT angeschlossen
+public/                      Dateien 1:1 ins Root: Favicons, Manifest
+scripts/                     Hilfsskripte: Linkprüfung, Favicons, Schriften zuschneiden
+src/
+  assets/                    Bilder (werden beim Build zu AVIF/WebP) und fonts/ (zugeschnittene WOFF2)
+  components/                Wiederverwendbare Bausteine (Kontakt, Formular, Projektkarte, Icons …)
+  data/site.ts               Sprachunabhängiges: Kontakt, Kennzahlen, Tech-Stack, Projekte
+  data/images.ts             Zuordnung Projekt → Bilder
+  i18n/de.ts, uk.ts          Alle Texte je Sprache (uk.ts muss dieselbe Struktur haben, TypeScript prüft das)
+  i18n/index.ts              t(lang), href(lang, pfad), pathIn(zielsprache, aktuellerPfad)
+  layouts/Base.astro         <head>, SEO-Meta, hreflang, JSON-LD, Header mit Sprachumschalter, Footer
+  pages/                     Dünne Routen: deutsche Seiten direkt, ukrainische unter pages/uk/, OG-Bilder, robots.txt
+  views/                     Seiteninhalte mit lang-Prop (Home, Projects, ProjectDetail, About, ContactPage, Impressum …)
+  scripts/app.ts             Gesamtes Seiten-JavaScript (Header, Einblenden, Zähler, Cursor, Formular)
+  scripts/hero-shader.ts     WebGL-Rauch im Hero, wird nur auf der Startseite nachgeladen
+  styles/index.css           Einstieg, importiert in fester Reihenfolge:
+    fonts.css  base.css  components.css  header.css  hero.css  sections.css  pages.css  footer.css  motion.css
+    lang-uk.css              Mehr Zeilenabstand und Oswald für Kyrillisch
 ```
 
 Neuen Text ändern: in `src/i18n/de.ts` und `src/i18n/uk.ts` an derselben Stelle.

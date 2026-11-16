@@ -1,0 +1,165 @@
+/* Palette und Schriften stammen aus dem CSS von alieksandrov-digital.de */
+:root {
+  --black: #000000;
+  --ink: #111111;
+  --orange: #ff8000;
+  --orange-light: #ff9933;
+  --white: #ffffff;
+  --mist: #c6c6c6;
+  --ash: #9a9a9a;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-strong: rgba(255, 255, 255, 0.09);
+  --line: rgba(255, 255, 255, 0.14);
+  --line-warm: rgba(255, 128, 0, 0.35);
+
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'PT Sans', system-ui, sans-serif;
+  --font-mono: 'VT323', ui-monospace, 'Courier New', monospace;
+
+  --wrap: 78rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --radius-l: clamp(1.25rem, 2.5vw, 2rem);
+  --radius-m: 1rem;
+  --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--ink);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+img {
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  color: var(--orange);
+}
+/* Überschriften auf hellen Glas-Karten bleiben weiß */
+.hero-card h2,
+.footer h2,
+.since-title,
+.project h2,
+.card h2,
+.cta-band h2 {
+  color: var(--white);
+}
+h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.005em;
+}
+p {
+  margin: 0;
+}
+a {
+  color: inherit;
+}
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 200;
+  background: var(--orange);
+  color: var(--ink);
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip:focus {
+  top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.wrap {
+  width: min(100% - 2 * var(--gutter), var(--wrap));
+  margin-inline: auto;
+}
+
+.block {
+  padding-block: clamp(2.75rem, 6vw, 5rem);
+  position: relative;
+}
+.block-head {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  max-width: 52rem;
+}
+.lead {
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  color: var(--mist);
+  max-width: 38em;
+}
+.muted {
+  color: var(--mist);
+}
+.prose {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 42rem;
+  color: var(--mist);
+}
+.prose strong {
+  color: var(--white);
+}
+

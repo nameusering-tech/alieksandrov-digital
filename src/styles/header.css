@@ -1,0 +1,189 @@
+/* ---------- Header ---------- */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  padding: 0.75rem var(--gutter);
+  pointer-events: none;
+}
+.header-bar {
+  pointer-events: auto;
+  position: relative;
+  isolation: isolate;
+  width: min(100%, var(--wrap));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.1rem;
+}
+/* Glas liegt auf einem Pseudo-Element, damit die Leiste kein Containing Block für das mobile Menü wird */
+.header-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 1.9rem;
+  background: linear-gradient(var(--glass), var(--glass)), rgba(17, 17, 17, 0.6);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  backdrop-filter: blur(22px) saturate(160%);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.header.is-stuck .header-bar::before,
+.header.is-open .header-bar::before {
+  opacity: 1;
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+.logo svg {
+  width: 8.2rem;
+  height: auto;
+}
+.nav {
+  margin-left: auto;
+}
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* Sprachumschalter im Stil der Navigations-Pillen */
+.lang {
+  display: flex;
+  padding: 0.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+.lang a {
+  display: grid;
+  place-items: center;
+  min-width: 2.6rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  font: 700 0.9rem/1 var(--font-body);
+  text-decoration: none;
+  color: var(--white);
+  transition: background-color 0.2s;
+}
+.lang a:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.lang a[aria-current='true'] {
+  background: var(--orange);
+  color: var(--ink);
+}
+.nav-list a:not(.btn) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.3s;
+}
+.nav-list a:not(.btn):hover,
+.nav-list a[aria-current='page']:not(.btn) {
+  background: rgba(255, 255, 255, 0.12);
+}
+.nav-list .btn {
+  margin-left: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 1.3rem;
+}
+.menu-btn {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--white);
+  font: 700 1rem var(--font-body);
+  cursor: pointer;
+}
+@media (max-width: 52rem) {
+  .menu-btn {
+    display: inline-flex;
+  }
+  /* Die Leiste selbst wächst nach unten und nimmt die Links auf */
+  .header-bar {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+  .header-tools {
+    margin-left: auto;
+  }
+  .nav {
+    order: 3;
+    margin-left: 0;
+    flex-basis: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.25s var(--ease),
+      visibility 0.25s;
+  }
+  .header.is-open .nav {
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .nav-list {
+    min-height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+  }
+  .nav-list li:first-child {
+    margin-top: 0.5rem;
+  }
+  .nav-list a:not(.btn),
+  .nav-list .btn {
+    font: 700 1.0625rem/1 var(--font-body);
+    min-height: 3rem;
+  }
+  .nav-list a:not(.btn) {
+    padding: 0 0.6rem;
+  }
+  .nav-list .btn {
+    display: flex;
+    margin: 0.4rem 0.3rem 0.6rem;
+  }
+}
+
+
+/* Schmale Displays: Logo, Sprachumschalter und Menü-Button in einer Zeile */
+@media (max-width: 26rem) {
+  .header-bar {
+    padding-left: 0.8rem;
+  }
+  .logo svg {
+    width: 6.4rem;
+  }
+  .lang a {
+    min-width: 2.1rem;
+    height: 2.25rem;
+  }
+  .menu-btn {
+    padding: 0 0.8rem;
+  }
+  .header-tools {
+    gap: 0.35rem;
+  }
+}

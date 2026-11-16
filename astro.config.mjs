@@ -12,7 +12,12 @@ export default defineConfig({
       i18n: { defaultLocale: 'de', locales: { de: 'de-DE', uk: 'uk-UA' } },
     }),
   ],
+  // CSS steckt inline in jeder Seite (kein Render-Blocking-Request).
   build: { inlineStylesheets: 'always' },
+  // Schriften nie als Base64 in das CSS einbetten: als Datei werden sie einmal geladen und gecacht.
+  vite: { build: { assetsInlineLimit: 0 } },
+  // HTML ohne überflüssige Leerzeichen ausliefern
+  compressHTML: true,
   server: { port: 4321 },
   devToolbar: { enabled: false },
 });

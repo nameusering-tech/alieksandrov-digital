@@ -1,0 +1,112 @@
+/*
+  Ukrainische Seiten (html[lang='uk']).
+  Barlow Condensed hat keine kyrillischen Zeichen, daher Oswald für Überschriften.
+  Oswald ist breiter und höher, kyrillische Zeichen haben mehr Ober- und Unterlängen (Й, Ї, д, у, щ):
+  deshalb überall mehr Zeilenabstand, keine negative Laufweite und etwas kleinere Display-Größen.
+*/
+html[lang='uk'] {
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+}
+html[lang='uk'] body {
+  line-height: 1.7;
+}
+
+/* Überschriften allgemein: :where() hält die Spezifität niedrig,
+   damit Komponenten-Regeln (.hero-card h2, .faq summary …) weiter greifen */
+:where(html[lang='uk']) :is(h1, h2, h3) {
+  letter-spacing: 0;
+  line-height: 1.12;
+}
+:where(html[lang='uk']) h2 {
+  font-size: clamp(2.1rem, 5.2vw, 3.9rem);
+}
+:where(html[lang='uk']) h3 {
+  line-height: 1.2;
+}
+
+/* Hero */
+html[lang='uk'] .hero h1 {
+  font-size: clamp(2.6rem, 12.2vw, 8rem);
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+}
+html[lang='uk'] .hero h1 .line {
+  padding-block: 0.12em 0.16em;
+  margin-block: -0.12em -0.16em;
+}
+@media (min-width: 62rem) {
+  html[lang='uk'] .hero h1 {
+    font-size: clamp(4rem, 7.6vw, 7.4rem);
+  }
+}
+html[lang='uk'] .hero-lead {
+  margin-top: 1.9rem;
+}
+html[lang='uk'] .hero-cta {
+  margin-top: 2.1rem;
+}
+html[lang='uk'] .hero-card h2 {
+  line-height: 1.15;
+}
+html[lang='uk'] .hero-card p {
+  margin-top: 0.55rem;
+}
+
+/* Abschnitte */
+html[lang='uk'] .block-head {
+  gap: 1.6rem;
+}
+html[lang='uk'] .lead,
+html[lang='uk'] .prose,
+html[lang='uk'] .legal {
+  line-height: 1.75;
+}
+html[lang='uk'] .prose {
+  gap: 1.35rem;
+}
+html[lang='uk'] .stats-top .statement {
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.3;
+}
+html[lang='uk'] .stat-label {
+  margin-top: 1.1rem;
+}
+html[lang='uk'] .since-title {
+  font-size: clamp(3rem, 10vw, 6.8rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+html[lang='uk'] .since-sub {
+  margin-top: 1.6rem;
+}
+html[lang='uk'] .stack li,
+html[lang='uk'] .place {
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+html[lang='uk'] .faq summary {
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+/* Unterseiten */
+html[lang='uk'] .page-head h1 {
+  font-size: clamp(2.5rem, 7.5vw, 5.6rem);
+  line-height: 1.06;
+  letter-spacing: -0.005em;
+}
+html[lang='uk'] .page-head .lead {
+  margin-top: 1.9rem;
+}
+html[lang='uk'] .legal {
+  gap: 1.25rem;
+}
+html[lang='uk'] .legal h2 {
+  line-height: 1.2;
+  margin-top: 2.25rem;
+}
+html[lang='uk'] .timeline h3,
+html[lang='uk'] .card h2,
+html[lang='uk'] .project h2 {
+  line-height: 1.2;
+}
