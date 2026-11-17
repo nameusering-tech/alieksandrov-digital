@@ -90,19 +90,6 @@ function setupCounters() {
   cleanups.push(() => io.disconnect());
 }
 
-function setupMagnetic() {
-  if (reduceQuery.matches || !finePointer.matches) return;
-  document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
-    on(el, 'pointermove', (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - (r.left + r.width / 2)) * 0.3;
-      const y = (e.clientY - (r.top + r.height / 2)) * 0.4;
-      el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
-    });
-    on(el, 'pointerleave', () => (el.style.transform = ''));
-  });
-}
-
 function setupTilt() {
   if (reduceQuery.matches || !finePointer.matches) return;
   document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((el) => {
@@ -231,7 +218,6 @@ setupHeader();
 setupHero();
 setupReveals();
 setupCounters();
-setupMagnetic();
 setupTilt();
 setupCursor();
 setupFaq();

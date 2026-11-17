@@ -21,14 +21,9 @@
 .btn-primary {
   background: var(--orange);
   color: var(--on-orange);
-  transition:
-    background-color 0.3s var(--ease),
-    box-shadow 0.4s var(--ease);
 }
-/* Ruhiger Hover: etwas heller, dazu ein weicher Lichtring */
 .btn-primary:hover {
   background: var(--orange-light);
-  box-shadow: 0 0 0 0.3rem rgba(255, 128, 0, 0.16);
 }
 .btn-ghost {
   border-color: rgba(255, 255, 255, 0.5);
