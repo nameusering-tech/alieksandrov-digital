@@ -4,7 +4,7 @@
   --ink: #111111;
   --orange: #ff8000;
   --orange-light: #ff9933;
-  --on-orange: var(--white); /* Text auf orangen Flächen */
+  --on-orange: var(--ink); /* Text auf orangen Flächen (dunkel: ausreichender Kontrast) */
   --white: #ffffff;
   --mist: #c6c6c6;
   --ash: #9a9a9a;
