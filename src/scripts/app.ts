@@ -97,13 +97,9 @@ function setupMagnetic() {
       const r = el.getBoundingClientRect();
       const x = (e.clientX - (r.left + r.width / 2)) * 0.3;
       const y = (e.clientY - (r.top + r.height / 2)) * 0.4;
-      // eigene translate-Eigenschaft, damit das CSS-scale (Aufblähen) unabhängig bleibt
-      el.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
-      // Glutkern der orangen Buttons folgt dem Cursor
-      el.style.setProperty('--hx', `${(((e.clientX - r.left) / r.width) * 100).toFixed(1)}%`);
-      el.style.setProperty('--hy', `${(((e.clientY - r.top) / r.height) * 100).toFixed(1)}%`);
+      el.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
     });
-    on(el, 'pointerleave', () => (el.style.translate = ''));
+    on(el, 'pointerleave', () => (el.style.transform = ''));
   });
 }
 
