@@ -153,15 +153,15 @@ const nav = [
         <nav class="nav" id="hauptnavigation" aria-label={d.ui.mainNav}>
           <ul class="nav-list">
             {
-              nav.map((item) => (
-                <li>
+              nav.map((item, i) => (
+                <li style={`--n:${i}`}>
                   <a href={href(lang, item.path)} aria-current={isCurrent(item.path) ? 'page' : undefined}>
                     {item.label}
                   </a>
                 </li>
               ))
             }
-            <li>
+            <li style={`--n:${nav.length}`}>
               <a class="btn btn-primary" href={href(lang, '/kontakt/')} data-magnetic aria-current={isCurrent('/kontakt/') ? 'page' : undefined}>
                 {d.ui.contact}
               </a>

@@ -21,6 +21,7 @@
   --radius-l: clamp(1.25rem, 2.5vw, 2rem);
   --radius-m: 1rem;
   --ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-panel: cubic-bezier(0.32, 0.72, 0, 1); /* Aufklappen von Menü und FAQ */
   color-scheme: dark;
 }
 

@@ -31,7 +31,7 @@
   backdrop-filter: blur(22px) saturate(160%);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s ease-out;
 }
 .header.is-stuck .header-bar::before,
 .header.is-open .header-bar::before {
@@ -135,13 +135,31 @@
     display: grid;
     grid-template-rows: 0fr;
     visibility: hidden;
+    /* Aufklappen: Höhe wächst weich (0fr → 1fr), Links blenden nacheinander ein */
     transition:
-      grid-template-rows 0.25s var(--ease),
-      visibility 0.25s;
+      grid-template-rows 0.42s var(--ease-panel),
+      visibility 0s 0.42s;
   }
   .header.is-open .nav {
     grid-template-rows: 1fr;
     visibility: visible;
+    transition:
+      grid-template-rows 0.42s var(--ease-panel),
+      visibility 0s;
+  }
+  .nav-list li {
+    opacity: 0;
+    transform: translate3d(0, -0.5rem, 0);
+    transition:
+      opacity 0.18s ease-out,
+      transform 0.25s var(--ease);
+  }
+  .header.is-open .nav-list li {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.3s ease-out calc(var(--n, 0) * 45ms + 80ms),
+      transform 0.4s var(--ease) calc(var(--n, 0) * 45ms + 80ms);
   }
   .nav-list {
     min-height: 0;

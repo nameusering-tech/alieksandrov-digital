@@ -289,37 +289,6 @@
   color: var(--mist);
 }
 
-/* ---------- Einzugsgebiet ---------- */
-.area {
-  padding: clamp(1.5rem, 4vw, 3rem);
-  display: grid;
-  gap: 2rem;
-}
-.places {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-content: start;
-}
-.place {
-  padding: 0.55rem 1.1rem;
-  border-radius: 999px;
-  border: 1px solid var(--line-warm);
-  font: 600 1.35rem/1 var(--font-display);
-  background: rgba(255, 128, 0, 0.08);
-}
-.place.is-home {
-  background: var(--orange);
-  color: var(--ink);
-  border-color: var(--orange);
-}
-@media (min-width: 56rem) {
-  .area {
-    grid-template-columns: 1.2fr 1fr;
-    align-items: center;
-  }
-}
-
 /* ---------- FAQ ---------- */
 .faq {
   display: grid;
@@ -354,8 +323,25 @@
   transform: rotate(45deg);
   transition: transform 0.3s var(--ease);
 }
-.faq details[open] summary::after {
+.faq details[open]:not(.is-closing) summary::after {
   transform: rotate(225deg);
+}
+/* Die Höhe animiert app.ts (setupFaq), die Antwort blendet dabei ein bzw. aus */
+.faq details p {
+  transition: opacity 0.3s ease-out;
+}
+.faq details.is-closing p {
+  opacity: 0;
+  transition-duration: 0.18s;
+}
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -0.4rem, 0);
+  }
+}
+.faq details.is-opening p {
+  animation: faq-in 0.4s var(--ease) both;
 }
 .faq details p {
   padding: 0 1.25rem 1.25rem;

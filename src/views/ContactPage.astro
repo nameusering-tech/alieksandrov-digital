@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Contact from '../components/Contact.astro';
-import Area from '../components/Area.astro';
 import { site } from '../data/site';
 import { t, href, type Lang } from '../i18n';
 
@@ -21,11 +20,6 @@ const schema = [{ '@type': 'ContactPage', url: site.url + self, about: { '@id': 
   <section class="block" style="padding-top:1rem" aria-label={d.contact.label}>
     <div class="wrap">
       <Contact lang={lang} showTitle={false} />
-    </div>
-  </section>
-  <section class="block" aria-label={d.area.label}>
-    <div class="wrap">
-      <Area lang={lang} />
     </div>
   </section>
 </Base>

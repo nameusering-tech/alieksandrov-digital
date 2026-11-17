@@ -10,6 +10,7 @@ precision mediump float;
 uniform vec2 r;
 uniform float t;
 uniform vec2 m;
+uniform float g; // Helligkeit: auf dem Handy etwas heller
 
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
 float noise(vec2 p){
@@ -43,6 +44,7 @@ void main(){
 
   // oben heller, unten dunkler wie im Original
   col *= 0.62 + 0.7 * smoothstep(0.0, 0.95, n.y);
+  col *= g;
   col += (hash(gl_FragCoord.xy + fract(t)) - 0.5) * 0.018; // gegen Farbstufen
   gl_FragColor = vec4(col, 1.0);
 }`;
@@ -74,6 +76,7 @@ export function initHeroShader(canvas: HTMLCanvasElement, reduced: boolean): () 
   const uR = gl.getUniformLocation(prog, 'r');
   const uT = gl.getUniformLocation(prog, 't');
   const uM = gl.getUniformLocation(prog, 'm');
+  const uG = gl.getUniformLocation(prog, 'g');
 
   // Der Verlauf ist weich: reduzierte Auflösung reicht und spart GPU-Zeit.
   // Qualität passt sich an: Ist das Gerät zu langsam, sinkt erst die Auflösung, dann bleibt ein Standbild.
@@ -104,6 +107,7 @@ export function initHeroShader(canvas: HTMLCanvasElement, reduced: boolean): () 
     gl.uniform2f(uR, canvas.width, canvas.height);
     gl.uniform1f(uT, reduced ? 12 : (now - start) / 1000 + 12);
     gl.uniform2f(uM, mouse.x, mouse.y);
+    gl.uniform1f(uG, canvas.clientWidth < 700 ? 1.22 : 1.0);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
 

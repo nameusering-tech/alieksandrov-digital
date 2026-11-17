@@ -170,6 +170,45 @@ function setupHero() {
   else window.addEventListener('load', idle, { once: true });
 }
 
+// FAQ: <details> öffnet und schließt sonst ohne Übergang. Hier wird die Höhe weich animiert.
+// Ohne JS bzw. mit reduzierter Bewegung bleibt das normale Verhalten erhalten.
+function setupFaq() {
+  if (reduceQuery.matches) return;
+  document.querySelectorAll<HTMLDetailsElement>('.faq details').forEach((item) => {
+    const summary = item.querySelector('summary');
+    if (!summary) return;
+    let anim: Animation | null = null;
+
+    const run = (from: number, to: number, opening: boolean) => {
+      item.classList.toggle('is-opening', opening);
+      item.classList.toggle('is-closing', !opening);
+      item.style.overflow = 'hidden';
+      anim = item.animate({ height: [`${from}px`, `${to}px`] }, { duration: opening ? 420 : 320, easing: 'cubic-bezier(0.32, 0.72, 0, 1)' });
+      anim.onfinish = () => {
+        anim = null;
+        if (!opening) item.open = false;
+        item.classList.remove('is-opening', 'is-closing');
+        item.style.overflow = '';
+      };
+    };
+
+    on(summary, 'click', (e: MouseEvent) => {
+      e.preventDefault();
+      const from = item.offsetHeight;
+      anim?.cancel();
+      anim = null;
+      const closing = item.open && !item.classList.contains('is-closing');
+      if (closing) {
+        const borders = item.offsetHeight - item.clientHeight;
+        run(from, summary.offsetHeight + borders, false);
+      } else {
+        item.open = true;
+        run(from, item.offsetHeight, true);
+      }
+    });
+  });
+}
+
 function setupForm() {
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
   if (!form) return;
@@ -195,4 +234,5 @@ setupCounters();
 setupMagnetic();
 setupTilt();
 setupCursor();
+setupFaq();
 setupForm();

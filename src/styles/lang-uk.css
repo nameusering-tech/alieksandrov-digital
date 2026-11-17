@@ -79,8 +79,7 @@ html[lang='uk'] .since-title {
 html[lang='uk'] .since-sub {
   margin-top: 1.6rem;
 }
-html[lang='uk'] .stack li,
-html[lang='uk'] .place {
+html[lang='uk'] .stack li {
   font-size: 1.2rem;
   line-height: 1.15;
 }

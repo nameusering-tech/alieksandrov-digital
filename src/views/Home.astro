@@ -4,7 +4,6 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Contact from '../components/Contact.astro';
-import Area from '../components/Area.astro';
 import aboutImg from '../assets/about.jpg';
 import { site, stats, stack, projects } from '../data/site';
 import { t, href, type Lang } from '../i18n';
@@ -157,11 +156,6 @@ const schema = [
     </div>
   </section>
 
-  <section class="block" aria-label={d.area.label}>
-    <div class="wrap">
-      <Area lang={lang} />
-    </div>
-  </section>
 
   <section class="block" aria-labelledby="faq">
     <div class="wrap">

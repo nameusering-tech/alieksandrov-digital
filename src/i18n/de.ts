@@ -208,13 +208,6 @@ export default {
     { period: '2024 – 2025', title: 'Integrationskurs · Deutsch B1', text: 'Deutsch auf B1-Niveau abgeschlossen. Zertifikat vorhanden.' },
     { period: 'Januar 2026 – heute', title: 'Praktikum bei CreateBetter.Design', text: 'Echte Kundenprojekte: WordPress-Websites, Figma-Design, Linux-Server. Telegram KI-Assistent selbst entwickelt. BNI-Netzwerktreffen.' },
   ],
-  area: {
-    label: 'Standort',
-    placesLabel: 'Standort und Region',
-    title: 'Hennef (Sieg), zwischen Köln und Bonn',
-    text: 'Ich wohne in Hennef (Sieg) im Rhein-Sieg-Kreis. Köln und Bonn liegen in der Nähe; die Website für BSH Hupperich ist für ein Bauunternehmen aus der Region Köln-Bonn entstanden.',
-    places: ['Hennef (Sieg)', 'Rhein-Sieg-Kreis', 'Bonn', 'Köln', 'NRW'],
-  },
   faq: {
     title: 'Häufige Fragen',
     items: [

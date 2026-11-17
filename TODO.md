@@ -16,6 +16,8 @@ Stand nach deinen Antworten vom 16.11.2026.
 - Telegram-Screenshot unten abgeschnitten (private Notiz entfernt).
 
 - Zweisprachig: Deutsch unter `/`, Ukrainisch unter `/uk/`, Umschalter DE | UA im Header.
+- Abschnitt „Standort / Hennef zwischen Köln und Bonn“ (Startseite und Kontakt) entfernt: ohne Leistungsangebot hatte er
+  keinen Nutzen. Hennef steht weiter im Hero, in der FAQ und im Impressum.
 
 ## Ukrainische Version – bitte gegenlesen
 

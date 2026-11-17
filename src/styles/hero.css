@@ -1,13 +1,13 @@
 /* ---------- Hero ---------- */
 .hero {
-  padding: 0.5rem;
+  padding: 0;
 }
 .hero-panel {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  border-radius: var(--radius-l);
-  min-height: min(100svh - 1rem, 60rem);
+  min-height: 100vh;
+  min-height: 100svh;
   display: grid;
   align-items: end;
   /* Standbild, bis der Shader läuft (und ohne WebGL): grobe Nachbildung des Rauchs */
@@ -41,7 +41,7 @@
 }
 @media (max-width: 61.99rem) {
   .hero-panel::after {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 28%, rgba(0, 0, 0, 0.45) 55%, rgba(17, 17, 17, 0.9));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.08) 28%, rgba(0, 0, 0, 0.32) 55%, rgba(17, 17, 17, 0.88));
   }
 }
 .hero-grid {
