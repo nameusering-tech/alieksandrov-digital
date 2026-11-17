@@ -82,7 +82,7 @@
 }
 .lang a[aria-current='true'] {
   background: var(--orange);
-  color: var(--ink);
+  color: var(--on-orange);
 }
 .nav-list a:not(.btn) {
   display: inline-flex;

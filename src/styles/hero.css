@@ -1,6 +1,21 @@
 /* ---------- Hero ---------- */
 .hero {
+  position: relative;
   padding: 0;
+}
+/* Der Rauch klingt unter dem Hero als schwacher Schein aus, statt an einer Kante zu enden */
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: min(60vh, 34rem);
+  z-index: 0; /* nachfolgende Abschnitte (position: relative) liegen darüber */
+  pointer-events: none;
+  background:
+    radial-gradient(60% 75% at 72% 0%, rgba(150, 58, 12, 0.24), transparent 75%),
+    radial-gradient(45% 55% at 15% 0%, rgba(120, 45, 8, 0.16), transparent 75%);
 }
 .hero-panel {
   position: relative;
@@ -36,12 +51,12 @@
   z-index: -1;
   /* Verlauf wie auf der alten Seite (oben Schwarz, unten #111) plus Abdunklung links für den Text */
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, transparent 29%, transparent 55%, rgba(17, 17, 17, 0.92) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.75) 0%, transparent 29%, transparent 52%, rgba(17, 17, 17, 0.3) 68%, rgba(17, 17, 17, 0.62) 80%, rgba(17, 17, 17, 0.88) 91%, #111 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.15) 50%, transparent 75%);
 }
 @media (max-width: 61.99rem) {
   .hero-panel::after {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.08) 28%, rgba(0, 0, 0, 0.32) 55%, rgba(17, 17, 17, 0.88));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.08) 28%, rgba(0, 0, 0, 0.3) 55%, rgba(17, 17, 17, 0.6) 78%, rgba(17, 17, 17, 0.9) 92%, #111);
   }
 }
 .hero-grid {

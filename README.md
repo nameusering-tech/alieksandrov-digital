@@ -13,7 +13,7 @@ npm run dev        # Entwicklungsserver: http://localhost:4321
 npm run build      # Production-Build nach dist/
 npm run preview    # Build lokal ansehen
 npm run check:links  # interne Links und Assets im Build prüfen
-npm run icons      # Favicon-Set aus public/favicon.svg neu erzeugen
+npm run icons      # Favicon-Set aus scripts/favicon-source.png (Logo der alten Seite) neu erzeugen
 npm run fonts      # Schriften neu zuschneiden (braucht: pip install fonttools brotli)
 ```
 

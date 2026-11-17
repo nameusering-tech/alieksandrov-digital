@@ -20,7 +20,7 @@
 }
 .btn-primary {
   background: var(--orange);
-  color: var(--ink);
+  color: var(--on-orange);
 }
 .btn-primary:hover {
   background: var(--orange-light);
@@ -57,7 +57,7 @@
 .icon-btn:hover,
 .icon-btn.is-hot {
   background: var(--orange);
-  color: var(--ink);
+  color: var(--on-orange);
 }
 .icon-btn svg {
   width: 1.2rem;
